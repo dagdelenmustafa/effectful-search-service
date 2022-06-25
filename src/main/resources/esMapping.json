@@ -1,0 +1,77 @@
+{
+  "settings" : {
+    "number_of_shards": "1",
+    "analysis": {
+      "filter": {
+        "my_ascii_folding": {
+          "type": "asciifolding",
+          "preserve_original": "true"
+        },
+        "autocomplete_filter": {
+          "type": "edge_ngram",
+          "min_gram": 1,
+          "max_gram": 10
+        },
+        "turkish_lowercase": {
+          "type":       "lowercase",
+          "language":   "turkish"
+        },
+        "turkish_stemmer": {
+          "type":       "stemmer",
+          "language":   "turkish"
+        }
+      },
+      "analyzer": {
+        "autocomplete": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "turkish_lowercase",
+            "turkish_stemmer",
+            "autocomplete_filter",
+            "my_ascii_folding"
+          ]
+        }
+      }
+    }
+  },
+  "mappings" : {
+    "properties" : {
+      "categories" : {
+        "type" : "text"
+      },
+      "color" : {
+        "type" : "text"
+      },
+      "detail_pane" : {
+        "type" : "text"
+      },
+      "images" : {
+        "type" : "text"
+      },
+      "price" : {
+        "type" : "text"
+      },
+      "price_in_basket" : {
+        "type" : "text"
+      },
+      "price_new" : {
+        "type" : "text"
+      },
+      "price_old" : {
+        "type" : "text"
+      },
+      "product_id" : {
+        "type" : "text"
+      },
+      "product_url" : {
+        "type" : "text"
+      },
+      "title" : {
+        "type" : "text",
+        "analyzer": "autocomplete",
+        "search_analyzer": "standard"
+      }
+    }
+  }
+}
